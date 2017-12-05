@@ -1,0 +1,68 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #222;
+  height: 65px;
+  padding: 10px;
+  color: white;
+}
+
+.App-header h2 {
+  font-size: 22px;
+  margin: 10px auto;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+.posts-col {
+  text-align: left;
+}
+.categories-col {
+  text-align: left;
+  border-right: none;
+}
+
+@media(min-width: 760px){
+  .categories-col {
+  text-align: right;
+  border-right: 1px solid #ddd;
+}
+}
+
+/* Readable stuff */
+.post {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 10px auto;
+  padding: 8px;
+}
+.post > h4 {
+  border-bottom: 2px solid #333;
+  margin-top: 0px;
+}
+.post-details,
+.post-edit, .post-delete {
+  font-size: 75%;
+}
+.post-content {
+  font-size: 110%;
+}
+
+.categories-list {
+  list-style: none;
+}
+.categories-list li {
+  text-transform: capitalize;
+}
+.categories-list > li.active,
+.sortby > li.active {
+  background-color: #ffef2b;
+}
+
+.sortby {
+  list-style: none;
+}
