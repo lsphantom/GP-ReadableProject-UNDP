@@ -1,3 +1,5 @@
+import * as APIUtils from '../utils'
+
 export const GET_CATEGORIES = 'GET_CATEGORIES'
 export const GET_POSTS = 'GET_POSTS'
 export const SET_SORTING = 'SET_SORTING'
@@ -11,11 +13,14 @@ export const DELETE_COMMENT = 'DELETE_COMMENT'
 
 // CATEGORIES
 export function getCategories (categories) {
+	APIUtils.fetchCategories().then(data => console.log(data))
+
 	return {
 		type: GET_CATEGORIES,
 		categories,
 	}
 }
+
 
 // POSTS
 export function addPost ({ id, author, date, comments, score }) {

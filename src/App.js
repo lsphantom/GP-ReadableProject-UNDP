@@ -7,24 +7,12 @@ import CategoriesList from './components/CategoriesList'
 import PostList from './components/PostList'
 import SortBy from './components/SortBy'
 
-import {getCategories} from './actions'
-
+import {getCategories} from './actions/'
 
 class App extends Component {
-  goFetchCategories = () => {
-    const url = `${process.env.REACT_APP_BACKEND}/categories`
-    fetch(url, { headers: { 'Authorization': 'top-secret' },
-                 credentials: 'gp' } )
-      .then(data => data.json())
-      .then(data => {
-        this.props.dispatch(getCategories({categories: data.categories}))
-      })
-  }
-
-  componentDidMount(){
-    this.goFetchCategories()
-  }
-  
+componentDidMount(){
+  getCategories()
+}
   render() {
     return (
       <div className="App">

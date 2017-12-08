@@ -8,17 +8,19 @@ import {
 	} from '../actions'
 
 
-function readableCategories (state = null, action) {
+function categories (state = null, action) {
 	switch (action.type){
 		case GET_CATEGORIES:
-			return action.categories
-		
+			return {
+				...state,
+				categories,
+			}
 		default:
 			return state
 	}
 }
 
-function readablePosts (state = null, action) {
+function posts (state = null, action) {
 	const { id, author, date, comments, score } = action
 
 	switch (action.type){
@@ -51,11 +53,11 @@ function readablePosts (state = null, action) {
 	}
 }
 
-function readableComments (state = null, action) {
+function comments (state = null, action) {
 	return state
 }
 
-function readableSorting (state = null, action) {
+function sorting (state = null, action) {
 	switch (action.type) {
 		case SET_SORTING:
 			return {
@@ -69,8 +71,8 @@ function readableSorting (state = null, action) {
 }
 
 export default combineReducers({
-	readableCategories,
-	readablePosts,
-	readableComments,
-	readableSorting,
+	categories,
+	posts,
+	comments,
+	sorting,
 })
