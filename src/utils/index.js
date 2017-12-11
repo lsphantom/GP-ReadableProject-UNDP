@@ -7,7 +7,7 @@ export const fetchCategories = () =>
                  credentials: 'gp' })
     .then(data => data.json())
     .then(data => data.categories)
-    .catch(data => console.log(data))
+    .catch(res => console.log(res))
 
 //Fetch posts
 export const fetchPosts = () =>

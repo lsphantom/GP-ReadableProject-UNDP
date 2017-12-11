@@ -1,6 +1,7 @@
 import * as APIUtils from '../utils'
 
-export const GET_CATEGORIES = 'GET_CATEGORIES'
+export const GET_CATEGORIES_SUCCESS = 'GET_CATEGORIES'
+export const GET_CATEGORIES_ERR = 'GET_CATEGORIES_ERR'
 export const GET_POSTS = 'GET_POSTS'
 export const SET_SORTING = 'SET_SORTING'
 
@@ -12,12 +13,27 @@ export const DELETE_COMMENT = 'DELETE_COMMENT'
 
 
 // CATEGORIES
-export function getCategories (categories) {
-	APIUtils.fetchCategories().then(data => console.log(data))
-
+export function getCategoriesSuccess (categories) {
 	return {
-		type: GET_CATEGORIES,
-		categories,
+		type: GET_CATEGORIES_SUCCESS,
+		categories
+	}
+}
+
+export function getCategoriesErr (err) {
+	return {
+		type: GET_CATEGORIES_ERR,
+		err
+	}
+}
+
+export function fetchCategories() {
+	const data = APIUtils.fetchCategories()
+
+	return dispatch => {
+		data.then((data) => {
+			dispatch(getCategoriesSuccess(data.categories))
+		}).catch(err => dispatch(getCategoriesErr(err)))
 	}
 }
 

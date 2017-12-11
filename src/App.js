@@ -1,40 +1,28 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
-import {connect} from 'react-redux';
+import {connect} from 'react-redux'
 
-import CategoriesList from './components/CategoriesList'
-import PostList from './components/PostList'
-import SortBy from './components/SortBy'
+import LandingPage from './components/LandingPage'
+import CreatePost from './components/CreatePost'
 
-import {getCategories} from './actions/'
+import { fetchCategories } from './actions'
 
 class App extends Component {
-componentDidMount(){
-  getCategories()
-}
+
   render() {
     return (
       <div className="App">
-      <div className="container-fluid">
-        <div className="App-header row">
+      <div className="App-header row">
           <h2>Readable Project</h2>
         </div>
-        <div className="container">
-          <div className="categories-col col-sm-6">
-          <h3>Categories</h3>
-          <CategoriesList />
-          <h4>Sort by</h4>
-          <SortBy />
-          </div>
-          <div className="posts-col col-sm-6">
-          <h3>Recent Posts</h3>
-          <button>Add a new post &rarr;</button>
-          
-          <PostList />
-          </div>
-        </div>
-      </div>
+      <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={LandingPage} />
+        <Route path="/create-post" component={CreatePost} />
+      </Switch>
+      </BrowserRouter>
       </div>
     );
   }
@@ -46,5 +34,10 @@ function mapStateToProps (readableApp) {
     readableApp
   }
 }
+function mapDispatchToProps (dispatch) {
+  return {
+    getCategories: () => dispatch(fetchCategories()),
+  }
+}
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)

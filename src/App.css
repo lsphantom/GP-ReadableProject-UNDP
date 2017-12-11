@@ -66,3 +66,10 @@
 .sortby {
   list-style: none;
 }
+
+/* Create Post Page */
+.post-form {
+  max-width: 500px;
+  float: none;
+  margin: 20px auto;
+}
