@@ -1,7 +1,6 @@
 import * as APIUtils from '../utils'
 
 export const GET_CATEGORIES_SUCCESS = 'GET_CATEGORIES_SUCCESS'
-export const GET_CATEGORIES_ERR = 'GET_CATEGORIES_ERR'
 export const SELECT_CATEGORY = 'SELECT_CATEGORY'
 export const GET_POSTS = 'GET_POSTS'
 export const SET_SORTING = 'SET_SORTING'
@@ -14,27 +13,15 @@ export const DELETE_COMMENT = 'DELETE_COMMENT'
 
 
 // CATEGORIES
-export const getCategoriesSuccess = (categories) => {
-	return {
+export const fetchCategories = () => dispatch =>
+	APIUtils.fetchCategories()
+	.then(categories => dispatch(getCategoriesSuccess(categories))
+)
+
+export const getCategoriesSuccess = categories => ({
 		type: GET_CATEGORIES_SUCCESS,
 		categories
-	}
-}
-
-export function getCategoriesErr (err) {
-	return {
-		type: GET_CATEGORIES_ERR,
-		err
-	}
-}
-
-export const fetchCategories = () => {
-	return dispatch => {
-		APIUtils.fetchCategories()
-			.then((data) => dispatch(getCategoriesSuccess(data.categories)))
-			.catch((err) => dispatch(getCategoriesErr(err)))
-	}
-}
+})
 
 export const selectCategory = (selectCategory) => {
 	return {
@@ -45,9 +32,15 @@ export const selectCategory = (selectCategory) => {
 
 
 // POSTS
-export function fetchAllPosts () {
+export const fetchAllPosts = () => dispatch =>
+	APIUtils.fetchPosts()
+	.then(posts => dispatch(getPosts(posts))
+)
+export const getPosts = posts => ({
+		type: GET_POSTS,
+		posts
+})
 
-}
 export function addPost ({ id, author, date, comments, score }) {
 	return {
 		type: ADD_POST,

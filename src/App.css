@@ -25,6 +25,9 @@
   text-align: left;
   border-right: none;
 }
+.categories-list a {
+  color: #000;
+}
 
 @media(min-width: 760px){
   .categories-col {

@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux'
 import {
 	GET_CATEGORIES_SUCCESS,
-	GET_CATEGORIES_ERR,
 	SELECT_CATEGORY,
 	GET_POSTS,
 	SET_SORTING,
@@ -11,16 +10,10 @@ import {
 
 
 function categories (state = null, action) {
-	const { categories } = action
+	const {categories} = action
 	switch (action.type){
 		case GET_CATEGORIES_SUCCESS:
-			return {
-				...state,
-				categories
-			}
-		case GET_CATEGORIES_ERR:
-			return state
-
+			return categories
 		default:
 			return state
 	}
@@ -41,9 +34,7 @@ function posts (state = null, action) {
 
 	switch (action.type){
 		case GET_POSTS:
-			return {
-				...state,
-			}
+			return action.posts
 		case ADD_POST:
 			return {
 				...state,

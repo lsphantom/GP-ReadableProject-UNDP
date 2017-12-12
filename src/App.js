@@ -2,14 +2,13 @@ import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
-import {connect} from 'react-redux'
+//import {connect} from 'react-redux'
 
 import LandingPage from './components/LandingPage'
 import CreatePost from './components/CreatePost'
 
-import { fetchCategories } from './actions'
-
 class App extends Component {
+
   render() {
     return (
       <div className="App">
@@ -28,15 +27,4 @@ class App extends Component {
 }
 
 
-function mapStateToProps (readableApp) {
-  return {
-    readableApp
-  }
-}
-function mapDispatchToProps (dispatch) {
-  return {
-    getCategories: () => dispatch(fetchCategories()),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default App

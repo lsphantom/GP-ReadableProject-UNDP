@@ -1,29 +1,45 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
+import { fetchCategories, fetchAllPosts } from '../actions'
 
 class CategoriesList extends Component {
 
 componentDidMount(){
-  
+  //Fetch all categories
+  this.props.getCategories();
+  this.props.getPosts();
 }
 
 render (){
+  const {categories} = this.props.readableApp
 	return (
 	<ul className="categories-list">
-		<li className="active">All</li>
-		{/*this.state.categories.map((category, index) =>
-			<li key={index}>{category.name}</li>
-		)*/}
+		<li className="active">
+      <Link to="/">all</Link>
+    </li>
+		{categories ? categories.map((category, index) =>
+		<li key={index}>
+      <Link to={`/${category.name}`}>{category.name}</Link>
+    </li>)
+    : false}
 	</ul>
 	)
 }
 }
 
 
-function mapStateToProps (readable) {
+function mapStateToProps (readableApp) {
   return {
-    readable
+    readableApp
+  }
+}
+function mapDispatchToProps (dispatch) {
+  return {
+    dispatch,
+    getCategories: () => dispatch(fetchCategories()),
+    getPosts: () => dispatch(fetchAllPosts()),
   }
 }
 
-export default connect(mapStateToProps)(CategoriesList);
+export default connect(mapStateToProps, mapDispatchToProps)(CategoriesList);
