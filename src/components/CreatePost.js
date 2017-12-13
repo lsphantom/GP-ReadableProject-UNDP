@@ -1,23 +1,42 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { fetchCategories } from '../actions'
-
+import { fetchCategories, fetchAllPosts, addPost } from '../actions'
+const uuidv4 = require('uuid/v4');
 
 class CreatePost extends Component {
 	state = {
 		title: '',
 		author: '',
-		content: ''
+		content: '',
+		category: 'react'
 	}
 	updateInput = (inputName, inputValue) => {
 		this.setState({
 			[inputName]: inputValue
 		})
 	}
+	submitPost = (event) => {
+		event.preventDefault()
+		const {title, author, content, category} = this.state
+		const newPost = {
+			id: uuidv4(),
+			timestamp: Date.now(),
+			title,
+			body: content,
+			author,
+			category,
+			voteScore: 0,
+			deleted: false,
+			commentCount: 0
+		}
+		this.props.submitPost(newPost);
+		this.props.history.push('/');
+	}
 
 	componentDidMount(){
 		this.props.getCategories();
+		this.props.getPosts();
 	}
 
 	render(){
@@ -30,7 +49,9 @@ class CreatePost extends Component {
 			<tr>
 			<td>Category:</td>
 			<td>
-			<select id="category-selector" default="react">
+			<select id="category"
+							value={this.state.category}
+							onChange={event => (this.updateInput(event.target.id, event.target.value))}>
 				{categories ? categories.map((category, index) =>
 				<option key={index} value={category.name}>{category.name}</option>)
 				: false}
@@ -69,7 +90,7 @@ class CreatePost extends Component {
 			</tr>
 		</tbody>
 		</table>
-		<button>Submit</button>
+		<input type="submit" value="Submit" onClick={event => this.submitPost(event)} />
 		<Link to="/">Cancel</Link>
 	</div>
 	)
@@ -84,6 +105,8 @@ function mapDispatchToProps (dispatch) {
   return {
     dispatch,
     getCategories: () => dispatch(fetchCategories()),
+		getPosts: () => dispatch(fetchAllPosts()),
+		submitPost: (data) => dispatch(addPost(data)),
   }
 }
 export default connect (mapStateToProps, mapDispatchToProps)(CreatePost)

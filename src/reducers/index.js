@@ -6,6 +6,7 @@ import {
 	SET_SORTING,
 	ADD_POST,
 	DELETE_POST,
+	EDIT_POST,
 	} from '../actions'
 
 
@@ -29,8 +30,8 @@ function currentCategory (state = 'all', action) {
 	}
 }
 
-function posts (state = null, action) {
-	const { id, author, date, comments, score } = action
+function posts (state = [], action) {
+	const { post } = action
 
 	switch (action.type){
 		case GET_POSTS:
@@ -38,21 +39,15 @@ function posts (state = null, action) {
 		case ADD_POST:
 			return {
 				...state,
-				[id]: {
-					...state[id],
-					[author]: null,
-					[date]: null,
-					[comments]: {},
-					[score]: null,
-				}
+				...post
 			}
 		case DELETE_POST:
 			return {
 				...state,
-				[id]: {
-					...state[author],
-					[date]: null,
-				}
+			}
+		case EDIT_POST:
+			return {
+				...state,
 			}
 		default:
 			return state

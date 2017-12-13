@@ -7,6 +7,7 @@ export const SET_SORTING = 'SET_SORTING'
 
 export const ADD_POST = 'ADD_POST'
 export const DELETE_POST = 'DELETE_POST'
+export const EDIT_POST = 'EDIT_POST'
 
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
@@ -36,27 +37,37 @@ export const fetchAllPosts = () => dispatch =>
 	APIUtils.fetchPosts()
 	.then(posts => dispatch(getPosts(posts))
 )
+
 export const getPosts = posts => ({
 		type: GET_POSTS,
 		posts
 })
 
-export function addPost ({ id, author, date, comments, score }) {
-	return {
-		type: ADD_POST,
-		id,
-		author,
-		date,
-		comments,
-		score,
-	}
+export const addPost = (data) => dispatch => {
+	APIUtils.addPost(data)
+		.then(post => dispatch(pushPostToStore(post)))
 }
 
-export function deletePost ({id}) {
-	return {
-		type: DELETE_POST,
-		id,
-	}
+export const pushPostToStore = post => ({
+		type: ADD_POST,
+		post
+})
+
+
+export const deletePost = (id) => {
+	APIUtils.deletePost(id)
+		.then(post => ({
+				type: DELETE_POST,
+				post
+		}))
+}
+
+export const editPost = (id, data) => {
+	APIUtils.editPost(id, data)
+		.then(post => ({
+				type: DELETE_POST,
+				post
+		}))
 }
 
 // COMMENTS

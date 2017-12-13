@@ -10,7 +10,7 @@ class PostList extends Component {
 		const {posts} = this.props.readableApp
 		return(
 			<div className="post-list">
-				{posts ? posts.map((post, index) =>
+				{Array.isArray(posts) ? posts.map((post, index) =>
 				<Post
 					key={index}
 					id={post.id}
