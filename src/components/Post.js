@@ -4,16 +4,21 @@ import {Link} from 'react-router-dom'
 import FaArrowUp from 'react-icons/lib/fa/arrow-up'
 import FaArrowDown from 'react-icons/lib/fa/arrow-down'
 
-import {editPost, deletePost} from '../actions'
+import {fetchPost, editPost, deletePost} from '../actions'
 
 class Post extends Component {
+componentDidMount(){
+	const postID = this.props.id
+	//Get post details
+	this.props.getPostByID(postID);
+}
 deleteThisPost = (id) => {
 	console.log('delete this post', id);
 	this.props.deletePost(id);
 	this.props.dispatch();
 }
 editThisPost = (id) => {
-	alert('edit this post', id)
+	console.log('edit this post', id)
 }
 
 render (){
@@ -24,12 +29,12 @@ render (){
 		<div className="post-content">
 			<p>{this.props.content}</p>
 		</div>
-		<p className="post-details">Posted: {this.props.date} | Category: {this.props.category}</p>
+		<p className="post-details">Posted: {new Date(this.props.date).toDateString()} | Category: {this.props.category}</p>
 		<div className="post-controls">
 			<span className="post-upvote"><a href=""><FaArrowUp /></a></span>
 			<span className="post-downvote"><a href=""><FaArrowDown /></a></span>
 			<br/>
-			<span className="post-edit"><span onClick={() => this.editThisPost(this.props.id)}>Edit</span></span> &nbsp;
+			<span className="post-edit"><Link to={`/posts/${this.props.id}`} onClick={() => this.editThisPost(this.props.id)}>Edit</Link></span> &nbsp;
 			<span className="post-delete"><Link to="" onClick={() => this.deleteThisPost(this.props.id)}>Delete</Link></span>
 		</div>
 	</div>
@@ -43,6 +48,7 @@ function mapStateToProps(readableApp) {
 function mapDispatchToProps(dispatch) {
 	return{
 		dispatch,
+		getPostByID: (id) => dispatch(fetchPost(id)),
 		deletePost: (id) => dispatch(deletePost(id)),
 		editPost: (id) => dispatch(editPost(id)),
 	}

@@ -4,6 +4,7 @@ import {
 	SET_CURRENT_CATEGORY,
 	GET_POSTS,
 	GET_POSTS_IN_CATEGORY,
+	GET_POST_DETAILS,
 	SET_SORTING,
 	ADD_POST,
 	DELETE_POST,
@@ -61,7 +62,15 @@ function posts (state = [], action) {
 }
 
 function comments (state = null, action) {
-	return state
+	const {comments} = action
+
+	switch (action.type) {
+		case GET_POST_DETAILS:
+			return null
+
+		default:
+			return state
+	}
 }
 
 function sorting (state = null, action) {

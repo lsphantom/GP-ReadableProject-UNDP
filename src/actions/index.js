@@ -4,6 +4,7 @@ export const GET_CATEGORIES_SUCCESS = 'GET_CATEGORIES_SUCCESS'
 export const SET_CURRENT_CATEGORY = 'SET_CURRENT_CATEGORY'
 export const GET_POSTS = 'GET_POSTS'
 export const GET_POSTS_IN_CATEGORY = 'GET_POSTS_IN_CATEGORY'
+export const GET_POST_DETAILS = 'GET_POST_DETAILS'
 export const SET_SORTING = 'SET_SORTING'
 
 export const ADD_POST = 'ADD_POST'
@@ -82,6 +83,16 @@ export const editPost = (id, data) => {
 				post
 		}))
 }
+
+export const fetchPost = (id) => dispatch =>
+	APIUtils.fetchPost(id)
+		.then(post => dispatch(pushPostDetails(post))
+)
+
+export const pushPostDetails = (post) => ({
+		type: GET_POST_DETAILS,
+		post
+})
 
 // COMMENTS
 export function addComment ({id, author, date}) {

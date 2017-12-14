@@ -7,8 +7,10 @@ import './App.css';
 import LandingPage from './components/LandingPage'
 //import CategoryPage from './components/CategoryPage'
 import CreatePost from './components/CreatePost'
+import FullPost from './components/FullPost'
 
 class App extends Component {
+
   render() {
     return (
       <div className="App">
@@ -19,6 +21,7 @@ class App extends Component {
       <Switch>
         <Route exact path="/" component={LandingPage} />
         <Route path="/create-post" component={CreatePost} />
+        <Route path="/posts/" component={FullPost} />
       </Switch>
       </BrowserRouter>
       </div>
