@@ -4,9 +4,8 @@ import {Link} from 'react-router-dom'
 import { fetchCategories, fetchAllPosts } from '../actions'
 
 class CategoriesList extends Component {
-
 componentDidMount(){
-  //Fetch all categories
+  //Fetch all categories and posts
   this.props.getCategories();
   this.props.getPosts();
 }
@@ -20,7 +19,7 @@ render (){
     </li>
 		{categories ? categories.map((category, index) =>
 		<li key={index}>
-      <Link to={`/${category.name}`}>{category.name}</Link>
+      <Link id={category.name} to={`/${category.name}`}>{category.name}</Link>
     </li>)
     : false}
 	</ul>

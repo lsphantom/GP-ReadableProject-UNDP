@@ -1,8 +1,9 @@
 import * as APIUtils from '../utils'
 
 export const GET_CATEGORIES_SUCCESS = 'GET_CATEGORIES_SUCCESS'
-export const SELECT_CATEGORY = 'SELECT_CATEGORY'
+export const SET_CURRENT_CATEGORY = 'SET_CURRENT_CATEGORY'
 export const GET_POSTS = 'GET_POSTS'
+export const GET_POSTS_IN_CATEGORY = 'GET_POSTS_IN_CATEGORY'
 export const SET_SORTING = 'SET_SORTING'
 
 export const ADD_POST = 'ADD_POST'
@@ -24,10 +25,10 @@ export const getCategoriesSuccess = categories => ({
 		categories
 })
 
-export const selectCategory = (selectCategory) => {
+export function selectCategory({category}) {
 	return {
-		type: SELECT_CATEGORY,
-		selectCategory
+		type: SET_CURRENT_CATEGORY,
+		category
 	}
 }
 
@@ -37,6 +38,16 @@ export const fetchAllPosts = () => dispatch =>
 	APIUtils.fetchPosts()
 	.then(posts => dispatch(getPosts(posts))
 )
+
+export const fetchPostsInCategory = (category) => dispatch =>
+	APIUtils.fetchPostsInCategory(category)
+		.then(posts => dispatch(getPostsInCategory(category)))
+
+
+export const getPostsInCategory = (posts) =>  ({
+		type: GET_POSTS_IN_CATEGORY,
+		posts
+})
 
 export const getPosts = posts => ({
 		type: GET_POSTS,
@@ -54,18 +65,20 @@ export const pushPostToStore = post => ({
 })
 
 
-export const deletePost = (id) => {
+export const deletePost = (id) => dispatch => {
 	APIUtils.deletePost(id)
-		.then(post => ({
-				type: DELETE_POST,
-				post
-		}))
+		.then(post => dispatch(pushDeletePost(post)))
 }
+
+export const pushDeletePost = post => ({
+	type: DELETE_POST,
+	post
+})
 
 export const editPost = (id, data) => {
 	APIUtils.editPost(id, data)
 		.then(post => ({
-				type: DELETE_POST,
+				type: EDIT_POST,
 				post
 		}))
 }

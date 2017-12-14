@@ -5,10 +5,10 @@ import './App.css';
 //import {connect} from 'react-redux'
 
 import LandingPage from './components/LandingPage'
+//import CategoryPage from './components/CategoryPage'
 import CreatePost from './components/CreatePost'
 
 class App extends Component {
-
   render() {
     return (
       <div className="App">
