@@ -3,6 +3,7 @@ import {
 	GET_CATEGORIES_SUCCESS,
 	SET_CURRENT_CATEGORY,
 	GET_POSTS,
+	VOTE_FOR_POST,
 	GET_POSTS_IN_CATEGORY,
 	GET_POST_DETAILS,
 	SET_SORTING,
@@ -47,6 +48,11 @@ function posts (state = [], action) {
 				...state,
 				...post
 			}
+		case VOTE_FOR_POST:
+			return {
+				...state,
+				...post
+			}
 
 		case DELETE_POST:
 			return {
@@ -62,7 +68,7 @@ function posts (state = [], action) {
 }
 
 function comments (state = null, action) {
-	const {comments} = action
+	//const {comments} = action
 
 	switch (action.type) {
 		case GET_POST_DETAILS:

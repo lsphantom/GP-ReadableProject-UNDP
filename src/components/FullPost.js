@@ -8,6 +8,7 @@ import Post from './Post'
 
 
 class FullPost extends Component {
+
 componentDidMount(){
 	//Fetch post details for a single post
 	this.props.getPosts();
@@ -17,6 +18,7 @@ render (){
 	return(
 	<div className="full-post container">
 	<Post id={postID} />
+		{postID}
 		<div className="comments-box">
 		<h4>Comments</h4>
 		{/*<Comments />*/}

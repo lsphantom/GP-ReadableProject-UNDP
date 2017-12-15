@@ -14,6 +14,8 @@ export const EDIT_POST = 'EDIT_POST'
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
 
+export const VOTE_FOR_POST = 'VOTE_FOR_POST'
+
 
 // CATEGORIES
 export const fetchCategories = () => dispatch =>
@@ -92,6 +94,17 @@ export const fetchPost = (id) => dispatch =>
 export const pushPostDetails = (post) => ({
 		type: GET_POST_DETAILS,
 		post
+})
+
+// VOTING
+export const changeVoteScore = (id, voteType) => dispatch => {
+	APIUtils.changeVoteScore(id, voteType)
+		.then(dispatch(voteForPost(id, voteType)))
+}
+
+export const voteForPost = (id, voteType) => ({
+		type: VOTE_FOR_POST,
+		id
 })
 
 // COMMENTS

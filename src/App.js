@@ -5,13 +5,13 @@ import './App.css';
 //import {connect} from 'react-redux'
 
 import LandingPage from './components/LandingPage'
-//import CategoryPage from './components/CategoryPage'
+import CategoryPage from './components/CategoryPage'
 import CreatePost from './components/CreatePost'
 import FullPost from './components/FullPost'
 
 class App extends Component {
-
   render() {
+    const category = 'react';
     return (
       <div className="App">
       <div className="App-header row">
@@ -20,6 +20,7 @@ class App extends Component {
       <BrowserRouter>
       <Switch>
         <Route exact path="/" component={LandingPage} />
+        <Route path={`/${category}`} component={CategoryPage} />
         <Route path="/create-post" component={CreatePost} />
         <Route path="/posts/" component={FullPost} />
       </Switch>

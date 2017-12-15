@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 //import {Link} from 'react-router-dom'
-import { fetchCategories, fetchAllPosts } from '../actions'
+import { fetchCategories, fetchAllPosts, fetchPostsInCategory } from '../actions'
 
 import Post from './Post'
 
 class PostList extends Component {
+	componentDidMount(){
+		//Determine category and list posts
+
+		//Set post sorting
+	}
 
 	render(){
 		const {posts} = this.props.readableApp
@@ -38,6 +43,7 @@ function mapDispatchToProps (dispatch) {
     dispatch,
     getCategories: () => dispatch(fetchCategories()),
     getPosts: () => dispatch(fetchAllPosts()),
+		getPostsFor: (category) => dispatch(fetchPostsInCategory(category)),
   }
 }
 

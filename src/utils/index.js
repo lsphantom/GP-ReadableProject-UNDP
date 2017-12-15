@@ -51,3 +51,11 @@ export const deletePost = (id) =>
     headers: { 'Authorization': 'whatever-you-want' } })
     .then(data => data.json())
     .catch(err => { console.log(`Request to delete post ID: ${id} failed`, err); })
+
+//Change post score
+export const changeVoteScore = (id, voteType) =>
+  fetch(`${url}/posts/${id}`, {
+    method: 'POST',
+    headers: { 'Authorization': 'whatever-you-want', 'Content-Type': 'application/json' },
+    body: JSON.stringify({ option: voteType })
+  }).then(data => data.json())
