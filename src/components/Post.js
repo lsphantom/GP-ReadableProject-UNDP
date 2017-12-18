@@ -15,7 +15,6 @@ componentDidMount(){
 deleteThisPost = (id) => {
 	console.log('delete this post', id);
 	this.props.deletePost(id);
-	this.props.dispatch();
 }
 editThisPost = (id) => {
 	console.log('edit this post', id)
@@ -23,7 +22,6 @@ editThisPost = (id) => {
 
 submitVote = (post, voteType) => {
  	this.props.voteOnPost(post, voteType);
-	this.props.dispatch();
 }
 
 render (){
@@ -36,11 +34,11 @@ render (){
 		</div>
 		<p className="post-details">Posted: {new Date(this.props.date).toDateString()} | Category: {this.props.category}</p>
 		<div className="post-controls">
-			<span className="post-upvote"><Link to="" onClick={() => this.submitVote(this.props.id, 'upVote')}><FaArrowUp /></Link></span>
-			<span className="post-downvote"><Link to="" onClick={() => this.submitVote(this.props.id, 'downVote')}><FaArrowDown /></Link></span>
+			<span className="post-upvote"><a href="" onClick={() => this.submitVote(this.props.id, 'upVote')}><FaArrowUp /></a></span>
+			<span className="post-downvote"><a href="" onClick={() => this.submitVote(this.props.id, 'downVote')}><FaArrowDown /></a></span>
 			<br/>
 			<span className="post-edit"><Link to={`/posts/${this.props.id}`} onClick={() => this.editThisPost(this.props.id)}>Edit</Link></span> &nbsp;
-			<span className="post-delete"><Link to="" onClick={() => this.deleteThisPost(this.props.id)}>Delete</Link></span>
+			<span className="post-delete"><a href="" onClick={() => this.deleteThisPost(this.props.id)}>Delete</a></span>
 		</div>
 	</div>
 	)

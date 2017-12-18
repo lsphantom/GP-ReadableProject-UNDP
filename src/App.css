@@ -13,6 +13,9 @@
   font-size: 22px;
   margin: 10px auto;
 }
+.App-header a {
+  color: #fff;
+}
 
 .App-intro {
   font-size: large;
@@ -44,8 +47,13 @@
   padding: 8px;
 }
 .post > h4 {
-  border-bottom: 2px solid #333;
+  background-color: #111;
+  /*border-bottom: 2px solid #333;*/
+  padding: 4px 6px;
   margin-top: 0px;
+}
+.post > h4 a {
+  color: #fff;
 }
 .post-details,
 .post-edit, .post-delete {
@@ -61,9 +69,10 @@
 .categories-list li {
   text-transform: capitalize;
 }
-.categories-list > li.active,
-.sortby > li.active {
+.categories-list > li > a.active,
+.sortby > li > a.active:last-child {
   background-color: #ffef2b;
+  display: block;
 }
 
 .sortby {

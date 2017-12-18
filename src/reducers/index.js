@@ -13,7 +13,7 @@ import {
 	} from '../actions'
 
 
-function categories (state = null, action) {
+function categories (state = [], action) {
 	const {categories} = action
 	switch (action.type){
 		case GET_CATEGORIES_SUCCESS:
@@ -23,10 +23,15 @@ function categories (state = null, action) {
 	}
 }
 
-function currentCategory (state = null, action) {
+function filtering (state = null, action) {
+	const {category} = action;
 	switch (action.type) {
+
 		case SET_CURRENT_CATEGORY:
-			return state
+			return {
+				...state,
+				category
+			}
 
 		default:
 			return state
@@ -94,7 +99,7 @@ function sorting (state = null, action) {
 
 export default combineReducers({
 	categories,
-	currentCategory,
+	filtering,
 	posts,
 	comments,
 	sorting,

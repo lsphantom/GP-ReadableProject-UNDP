@@ -6,11 +6,6 @@ import { fetchCategories, fetchAllPosts, fetchPostsInCategory } from '../actions
 import Post from './Post'
 
 class PostList extends Component {
-	componentDidMount(){
-		//Determine category and list posts
-
-		//Set post sorting
-	}
 
 	render(){
 		const {posts} = this.props.readableApp

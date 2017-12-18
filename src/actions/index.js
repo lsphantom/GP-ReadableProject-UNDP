@@ -28,7 +28,7 @@ export const getCategoriesSuccess = categories => ({
 		categories
 })
 
-export function selectCategory({category}) {
+export function selectCategory(category) {
 	return {
 		type: SET_CURRENT_CATEGORY,
 		category
@@ -88,7 +88,8 @@ export const editPost = (id, data) => {
 
 export const fetchPost = (id) => dispatch =>
 	APIUtils.fetchPost(id)
-		.then(post => dispatch(pushPostDetails(post))
+		.then(post => console.log(post)
+		//.then(post => dispatch(pushPostDetails(post))
 )
 
 export const pushPostDetails = (post) => ({
