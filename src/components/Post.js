@@ -27,7 +27,7 @@ submitVote = (post, voteType) => {
 render (){
 	return(
 	<div className="post" id={this.props.id}>
-		<h4><Link to={`/posts/${this.props.id}`}>{this.props.title}</Link></h4>
+		<h4><Link to={`/${this.props.category}/${this.props.id}`}>{this.props.title}</Link></h4>
 		<p className="post-details">Author: {this.props.author} | Comments: {this.props.commentCount}  | Current Score: {this.props.score}</p>
 		<div className="post-content">
 			<p>{this.props.content}</p>

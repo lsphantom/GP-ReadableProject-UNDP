@@ -9,15 +9,9 @@ import SortBy from './SortBy'
 
 
 class LandingPage extends Component {
-componentDidMount(){
-	  //Fetch all categories and posts
-	  this.props.getCategories();
-	  this.props.getPosts();
-		this.props.setCurrentCategory({category: 'all'});
-	}
 
 render (){
-	const {categories} = this.props.readableApp
+	const {categories, filtering} = this.props.readableApp
 	return(
 	<div id="home" className="container-fluid">
         <div className="container">
@@ -28,11 +22,11 @@ render (){
           <SortBy />
           </div>
           <div className="posts-col col-sm-6">
-          <h3>Posts</h3>
 
+          <h3>Posts</h3>
           <Link to="/create-post">Add a new post &rarr;</Link>
 
-          <PostList />
+          <PostList filter={filtering} sortBy="" />
           </div>
         </div>
     </div>

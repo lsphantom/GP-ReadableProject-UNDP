@@ -6,7 +6,6 @@ import { fetchCategories, fetchAllPosts, fetchPostsInCategory } from '../actions
 import Post from './Post'
 
 class PostList extends Component {
-
 	render(){
 		const {posts} = this.props.readableApp
 		return(
@@ -22,7 +21,7 @@ class PostList extends Component {
 					date={post.timestamp}
 					commentCount={post.commentCount}
 					score={post.voteScore} />)
-				: false}
+				: <h4>No Posts</h4>}
 			</div>
 		)
 	}

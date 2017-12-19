@@ -1,34 +1,34 @@
 import * as APIUtils from '../utils'
 
+//** Action constants
 export const GET_CATEGORIES_SUCCESS = 'GET_CATEGORIES_SUCCESS'
 export const SET_CURRENT_CATEGORY = 'SET_CURRENT_CATEGORY'
+
 export const GET_POSTS = 'GET_POSTS'
 export const GET_POSTS_IN_CATEGORY = 'GET_POSTS_IN_CATEGORY'
 export const GET_POST_DETAILS = 'GET_POST_DETAILS'
-export const SET_SORTING = 'SET_SORTING'
-
 export const ADD_POST = 'ADD_POST'
 export const DELETE_POST = 'DELETE_POST'
 export const EDIT_POST = 'EDIT_POST'
+export const VOTE_FOR_POST = 'VOTE_FOR_POST'
 
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
 
-export const VOTE_FOR_POST = 'VOTE_FOR_POST'
+export const SET_POST_SORTING = 'SET_POST_SORTING'
+export const SET_COMMENT_SORTING = 'SET_COMMENT_SORTING'
 
 
-// CATEGORIES
+//** CATEGORIES
 export const fetchCategories = () => dispatch =>
 	APIUtils.fetchCategories()
 	.then(categories => dispatch(getCategoriesSuccess(categories))
 )
-
 export const getCategoriesSuccess = categories => ({
 		type: GET_CATEGORIES_SUCCESS,
 		categories
 })
-
-export function selectCategory(category) {
+export const selectCategory = (category) => {
 	return {
 		type: SET_CURRENT_CATEGORY,
 		category
@@ -36,38 +36,31 @@ export function selectCategory(category) {
 }
 
 
-// POSTS
+//** POSTS
 export const fetchAllPosts = () => dispatch =>
 	APIUtils.fetchPosts()
 	.then(posts => dispatch(getPosts(posts))
 )
-
 export const fetchPostsInCategory = (category) => dispatch =>
 	APIUtils.fetchPostsInCategory(category)
-		.then(posts => dispatch(getPostsInCategory(category)))
-
-
-export const getPostsInCategory = (posts) =>  ({
-		type: GET_POSTS_IN_CATEGORY,
-		posts
-})
-
+		.then(posts => dispatch(getPostsInCategory(category))
+)
 export const getPosts = posts => ({
 		type: GET_POSTS,
 		posts
 })
-
+export const getPostsInCategory = (posts) =>  ({
+		type: GET_POSTS_IN_CATEGORY,
+		posts
+})
 export const addPost = (data) => dispatch => {
 	APIUtils.addPost(data)
 		.then(post => dispatch(pushPostToStore(post)))
 }
-
 export const pushPostToStore = post => ({
 		type: ADD_POST,
 		post
 })
-
-
 export const deletePost = (id) => dispatch => {
 	APIUtils.deletePost(id)
 		.then(post => dispatch(pushDeletePost(post)))
@@ -96,20 +89,18 @@ export const pushPostDetails = (post) => ({
 		type: GET_POST_DETAILS,
 		post
 })
-
-// VOTING
 export const changeVoteScore = (id, voteType) => dispatch => {
 	APIUtils.changeVoteScore(id, voteType)
 		.then(dispatch(voteForPost(id, voteType)))
 }
-
 export const voteForPost = (id, voteType) => ({
 		type: VOTE_FOR_POST,
 		id
 })
 
-// COMMENTS
-export function addComment ({id, author, date}) {
+
+//** COMMENTS
+export const addComment = ({id, author, date}) => {
 	return {
 		type: ADD_COMMENT,
 		id,
@@ -117,8 +108,7 @@ export function addComment ({id, author, date}) {
 		date,
 	}
 }
-
-export function deleteComment ({id}) {
+export const deleteComment = ({id}) => {
 	return {
 		type: DELETE_COMMENT,
 		id,
@@ -126,10 +116,16 @@ export function deleteComment ({id}) {
 }
 
 
-// SORTING
-export function setSorting (sortingBy) {
+//** SORTING
+export const setPostSorting = (sortingBy) => {
 	return {
-		type: SET_SORTING,
+		type: SET_POST_SORTING,
+		sortingBy,
+	}
+}
+export const setCommentSorting = (sortingBy) => {
+	return {
+		type: SET_COMMENT_SORTING,
 		sortingBy,
 	}
 }

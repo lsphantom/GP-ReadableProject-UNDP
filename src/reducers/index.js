@@ -3,10 +3,11 @@ import {
 	GET_CATEGORIES_SUCCESS,
 	SET_CURRENT_CATEGORY,
 	GET_POSTS,
-	VOTE_FOR_POST,
 	GET_POSTS_IN_CATEGORY,
 	GET_POST_DETAILS,
-	SET_SORTING,
+	SET_POST_SORTING,
+	VOTE_FOR_POST,
+	SET_COMMENT_SORTING,
 	ADD_POST,
 	DELETE_POST,
 	EDIT_POST,
@@ -17,26 +18,13 @@ function categories (state = [], action) {
 	const {categories} = action
 	switch (action.type){
 		case GET_CATEGORIES_SUCCESS:
-			return categories
-		default:
-			return state
-	}
-}
-
-function filtering (state = null, action) {
-	const {category} = action;
-	switch (action.type) {
-
-		case SET_CURRENT_CATEGORY:
-			return {
-				...state,
-				category
-			}
+			return [...state, ...categories]
 
 		default:
 			return state
 	}
 }
+
 
 function posts (state = [], action) {
 	const { post } = action
@@ -49,28 +37,49 @@ function posts (state = [], action) {
 			return action.posts
 
 		case ADD_POST:
-			return {
+			return [
 				...state,
 				...post
-			}
-		case VOTE_FOR_POST:
-			return {
-				...state,
-				...post
-			}
+			]
 
 		case DELETE_POST:
-			return {
+			return [
 				...state,
-			}
+				...post
+			]
+
 		case EDIT_POST:
-			return {
+			return [
 				...state,
-			}
+			]
+
+		case VOTE_FOR_POST:
+			return [
+				...state,
+				...post
+			]
+
 		default:
 			return state
 	}
 }
+
+
+
+
+function filtering (state = '', action) {
+	//const {category} = action;
+	switch (action.type) {
+		case SET_CURRENT_CATEGORY:
+			return action.category
+
+		default:
+			return state
+	}
+}
+
+
+
 
 function comments (state = null, action) {
 	//const {comments} = action
@@ -84,23 +93,35 @@ function comments (state = null, action) {
 	}
 }
 
-function sorting (state = null, action) {
-	switch (action.type) {
-		case SET_SORTING:
-			return {
-				...state,
 
-			}
+
+function sortPosts (state = null, action) {
+	switch (action.type) {
+		case SET_POST_SORTING:
+			return state
+
 		default:
 			return state
 	}
+}
 
+
+
+function sortComments (state = null, action) {
+	switch (action.type) {
+		case SET_COMMENT_SORTING:
+			return state
+
+		default:
+			return state
+	}
 }
 
 export default combineReducers({
 	categories,
-	filtering,
 	posts,
+	filtering,
 	comments,
-	sorting,
+	sortPosts,
+	sortComments,
 })

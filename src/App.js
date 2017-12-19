@@ -7,27 +7,26 @@ import {connect} from 'react-redux'
 
 import Header from './components/Header'
 import LandingPage from './components/LandingPage'
-import CategoryPage from './components/CategoryPage'
 import CreatePost from './components/CreatePost'
 import FullPost from './components/FullPost'
 
 class App extends Component {
   componentDidMount(){
-
+    //Fetch all categories and posts
+	  this.props.getCategories();
+	  this.props.getPosts();
+		this.props.setCurrentCategory('all');
   }
   render() {
-    const category = 'react';
     return (
       <div className="App">
       <Header/>
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={LandingPage} />
-          <Route path={`/${category}`} render={() => (
-              <CategoryPage activeCategory="test" />
-          )} />
-          <Route path="/create-post" component={CreatePost} />
-          <Route path="/posts/" component={FullPost} />
+          <Route exact path="/create-post" component={CreatePost} />
+          <Route exact path="/:category" component={LandingPage} />
+          <Route path="/:category/:post_id" component={FullPost} />
         </Switch>
       </BrowserRouter>
       </div>

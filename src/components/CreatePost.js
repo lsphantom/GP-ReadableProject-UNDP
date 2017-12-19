@@ -9,7 +9,7 @@ class CreatePost extends Component {
 		title: '',
 		author: '',
 		content: '',
-		category: 'react'
+		category: ''
 	}
 	updateInput = (inputName, inputValue) => {
 		this.setState({
@@ -32,10 +32,6 @@ class CreatePost extends Component {
 		}
 		this.props.submitPost(newPost);
 		this.props.history.push('/');
-	}
-
-	componentDidMount(){
-		this.props.getCategories();
 		this.props.getPosts();
 	}
 
