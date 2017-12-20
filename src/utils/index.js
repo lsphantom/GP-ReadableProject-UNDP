@@ -58,4 +58,11 @@ export const changeVoteScore = (id, voteType) =>
     method: 'POST',
     headers: { 'Authorization': 'whatever-you-want', 'Content-Type': 'application/json' },
     body: JSON.stringify({ option: voteType })
-  }).then(data => data.json())
+  }).then(data => {return data.json()})
+    .catch(err => { console.log(`Request to change ${voteType} score on post ${id} failed`, err); })
+
+//Get all comments
+export const fetchComments = (id) =>
+  fetch(`${url}/posts/${id}/comments`, { headers: { 'Authorization': 'whatever-you-want' } })
+    .then(data => data.json())
+    .catch(err => { console.log(`Request for comments failed`, err); })

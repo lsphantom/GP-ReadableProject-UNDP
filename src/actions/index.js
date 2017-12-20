@@ -12,6 +12,7 @@ export const DELETE_POST = 'DELETE_POST'
 export const EDIT_POST = 'EDIT_POST'
 export const VOTE_FOR_POST = 'VOTE_FOR_POST'
 
+export const GET_COMMENTS = 'GET_COMMENTS'
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
 
@@ -81,8 +82,7 @@ export const editPost = (id, data) => {
 
 export const fetchPost = (id) => dispatch =>
 	APIUtils.fetchPost(id)
-		.then(post => console.log(post)
-		//.then(post => dispatch(pushPostDetails(post))
+		.then(post => dispatch(pushPostDetails(post))
 )
 
 export const pushPostDetails = (post) => ({
@@ -100,12 +100,18 @@ export const voteForPost = (id, voteType) => ({
 
 
 //** COMMENTS
-export const addComment = ({id, author, date}) => {
+export const fetchComments = (id) => dispatch =>
+	APIUtils.fetchComments(id)
+		.then(comments => dispatch(getComments(comments))
+)
+export const getComments = (comments) => ({
+		type: GET_COMMENTS,
+		comments
+})
+export const addComment = (comment) => {
 	return {
 		type: ADD_COMMENT,
-		id,
-		author,
-		date,
+		comment
 	}
 }
 export const deleteComment = ({id}) => {

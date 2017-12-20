@@ -15,6 +15,7 @@ componentDidMount(){
 deleteThisPost = (id) => {
 	console.log('delete this post', id);
 	this.props.deletePost(id);
+	this.props.history.push('/');
 }
 editThisPost = (id) => {
 	console.log('edit this post', id)

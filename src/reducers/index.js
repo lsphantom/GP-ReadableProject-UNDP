@@ -11,6 +11,8 @@ import {
 	ADD_POST,
 	DELETE_POST,
 	EDIT_POST,
+	GET_COMMENTS,
+	ADD_COMMENT,
 	} from '../actions'
 
 
@@ -32,6 +34,9 @@ function posts (state = [], action) {
 	switch (action.type){
 		case GET_POSTS:
 			return action.posts
+
+		case GET_POST_DETAILS:
+			return state
 
 		case GET_POSTS_IN_CATEGORY:
 			return action.posts
@@ -81,12 +86,14 @@ function filtering (state = '', action) {
 
 
 
-function comments (state = null, action) {
-	//const {comments} = action
-
+function comments (state = [], action) {
+	const {comments, comment} = action
 	switch (action.type) {
-		case GET_POST_DETAILS:
-			return null
+		case GET_COMMENTS:
+			return [...state, ...comments]
+
+		case ADD_COMMENT:
+			return [...state, ...comment]
 
 		default:
 			return state

@@ -85,3 +85,14 @@
   float: none;
   margin: 20px auto;
 }
+
+
+/* Comments */
+.comment {
+  background-color: #B29EE8;
+  border-radius: 12px;
+  color: #fff;
+  max-width: 450px;
+  float: none;
+  margin: 10px auto;
+}

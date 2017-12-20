@@ -14,6 +14,7 @@ render (){
 	<ul className="categories-list">
 		<li>
       <NavLink activeClassName={"active"}
+               exact
                to="/"
                onClick={event => (this.changeFilter('all'))}>all</NavLink>
     </li>

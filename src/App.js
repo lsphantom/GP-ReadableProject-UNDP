@@ -10,6 +10,7 @@ import LandingPage from './components/LandingPage'
 import CreatePost from './components/CreatePost'
 import FullPost from './components/FullPost'
 
+
 class App extends Component {
   componentDidMount(){
     //Fetch all categories and posts

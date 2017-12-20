@@ -9,7 +9,7 @@ class CreatePost extends Component {
 		title: '',
 		author: '',
 		content: '',
-		category: ''
+		category: 'react'
 	}
 	updateInput = (inputName, inputValue) => {
 		this.setState({
@@ -50,7 +50,7 @@ class CreatePost extends Component {
 							onChange={event => (this.updateInput(event.target.id, event.target.value))}>
 				{categories ? categories.map((category, index) =>
 				<option key={index} value={category.name}>{category.name}</option>)
-				: false}
+				: <option>No categories</option>}
 			</select>
 			</td>
 			</tr>
