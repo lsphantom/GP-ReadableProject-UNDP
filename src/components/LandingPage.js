@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux';
-import { Link } from 'react-router-dom'
 import { fetchCategories, fetchAllPosts, selectCategory } from '../actions'
 
 import CategoriesList from './CategoriesList'
@@ -10,7 +9,14 @@ import SortBy from './SortBy'
 
 
 class LandingPage extends Component {
-
+componentDidMount(){
+  const activeFilter = this.props.match.params.category;
+  if (activeFilter === undefined) {
+    this.props.dispatch(selectCategory('all'));
+  } else {
+    this.props.dispatch(selectCategory(activeFilter));
+  }
+}
 render (){
 	const {categories, filtering} = this.props.readableApp
 	return(
@@ -24,10 +30,8 @@ render (){
           </div>
           <div className="posts-col col-sm-6">
 
-          <h3>Posts</h3>
-          <Link to="/create-post">Add a new post &rarr;</Link>
-
           <PostList filter={filtering} sortBy="" />
+
           </div>
         </div>
     </div>

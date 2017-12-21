@@ -4,8 +4,9 @@ import {connect} from 'react-redux'
 import {selectCategory} from '../actions'
 
 class CategoriesList extends Component {
+
 changeFilter(value) {
-  //this.props.dispatch(selectCategory(value));
+  this.props.dispatch(selectCategory(value));
 }
 
 render (){
@@ -23,7 +24,8 @@ render (){
       <NavLink activeClassName={"active"}
                id={category.name}
                to={`/${category.name}`}
-               value={category.name}>{category.name}</NavLink>
+               value={category.name}
+               onClick={event => (this.changeFilter(category.name))}>{category.name}</NavLink>
     </li>)
     : <li>No categories</li>}
 	</ul>

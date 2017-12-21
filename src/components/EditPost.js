@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { fetchCategories, fetchAllPosts, addPost } from '../actions'
 const uuidv4 = require('uuid/v4');
 
-class CreatePost extends Component {
+class EditPost extends Component {
 	state = {
 		title: '',
 		author: '',
@@ -39,7 +39,7 @@ class CreatePost extends Component {
 	const {categories} = this.props.readableApp;
 	return(
 	<div className="create-new-post container">
-		<h3>Add New Post</h3>
+		<h3>Edit Post</h3>
 		<table className="post-form table-responsive">
 		<tbody>
 			<tr>
@@ -110,4 +110,4 @@ function mapDispatchToProps (dispatch) {
 		submitPost: (data) => dispatch(addPost(data)),
   }
 }
-export default connect (mapStateToProps, mapDispatchToProps)(CreatePost)
+export default connect (mapStateToProps, mapDispatchToProps)(EditPost)

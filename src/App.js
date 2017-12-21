@@ -16,7 +16,6 @@ class App extends Component {
     //Fetch all categories and posts
 	  this.props.getCategories();
 	  this.props.getPosts();
-		this.props.setCurrentCategory('all');
   }
   render() {
     return (

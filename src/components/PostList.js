@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
-//import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import { fetchCategories, fetchAllPosts, fetchPostsInCategory } from '../actions'
 
 import Post from './Post'
@@ -10,6 +10,11 @@ class PostList extends Component {
 		const {posts} = this.props.readableApp
 		return(
 			<div className="post-list">
+			<h3>
+				<span className="categories-label">{`${this.props.filter} `}</span>Posts
+			</h3>
+          	<Link to="/create-post">Add a new post &rarr;</Link>
+
 				{Array.isArray(posts) ? posts.map((post, index) =>
 				<Post
 					key={index}

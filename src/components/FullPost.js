@@ -10,7 +10,6 @@ import {fetchCategories,
 				fetchComments} from '../actions'
 
 import Post from './Post'
-//import Comments from './Comments'
 
 
 class FullPost extends Component {
@@ -53,8 +52,8 @@ render (){
 		</div>
 		<div className="comments-box">
 		<h4>Comments</h4>
-		{/*<Comments />*/}
-		<a href="">Add comment</a>
+		{/*<CommentList />*/}
+		<a href="">Add comment &rarr;</a>
 		<div className="comment">
 			<p>Comment Title</p>
 			<p>Comment details</p>
