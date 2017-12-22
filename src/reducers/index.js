@@ -90,7 +90,7 @@ function comments (state = [], action) {
 	const {comments, comment} = action
 	switch (action.type) {
 		case GET_COMMENTS:
-			return [...state, ...comments]
+			return comments
 
 		case ADD_COMMENT:
 			return [...state, ...comment]

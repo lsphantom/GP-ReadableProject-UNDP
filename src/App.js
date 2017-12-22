@@ -9,6 +9,7 @@ import Header from './components/Header'
 import LandingPage from './components/LandingPage'
 import CreatePost from './components/CreatePost'
 import FullPost from './components/FullPost'
+import EditPost from './components/EditPost'
 
 
 class App extends Component {
@@ -26,6 +27,7 @@ class App extends Component {
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/create-post" component={CreatePost} />
           <Route exact path="/:category" component={LandingPage} />
+          <Route path="/posts/:post_id" component={EditPost} />
           <Route path="/:category/:post_id" component={FullPost} />
         </Switch>
       </BrowserRouter>

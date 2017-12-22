@@ -7,18 +7,10 @@ import FaArrowDown from 'react-icons/lib/fa/arrow-down'
 import {fetchPost, editPost, deletePost, changeVoteScore} from '../actions'
 
 class Post extends Component {
-componentDidMount(){
-	//const postID = this.props.id
-	//Get post details
-	//this.props.getPostByID(postID);
-}
+
 deleteThisPost = (id) => {
-	console.log('delete this post', id);
 	this.props.deletePost(id);
 	this.props.history.push('/');
-}
-editThisPost = (id) => {
-	console.log('edit this post', id)
 }
 
 submitVote = (post, voteType) => {
@@ -38,7 +30,7 @@ render (){
 			<span className="post-upvote"><a href="" onClick={() => this.submitVote(this.props.id, 'upVote')}><FaArrowUp /></a></span>
 			<span className="post-downvote"><a href="" onClick={() => this.submitVote(this.props.id, 'downVote')}><FaArrowDown /></a></span>
 			<br/>
-			<span className="post-edit"><Link to={`/posts/${this.props.id}`} onClick={() => this.editThisPost(this.props.id)}>Edit</Link></span> &nbsp;
+			<span className="post-edit"><Link to={`/posts/${this.props.id}`} >Edit</Link></span> &nbsp;
 			<span className="post-delete"><a href="" onClick={() => this.deleteThisPost(this.props.id)}>Delete</a></span>
 		</div>
 	</div>

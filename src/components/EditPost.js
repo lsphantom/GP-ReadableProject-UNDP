@@ -1,45 +1,43 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { fetchCategories, fetchAllPosts, addPost } from '../actions'
-const uuidv4 = require('uuid/v4');
+import {fetchCategories,
+		fetchAllPosts,
+		fetchPost} from '../actions'
 
 class EditPost extends Component {
 	state = {
+		id: '',
 		title: '',
 		author: '',
 		content: '',
-		category: 'react'
+		category: '',
 	}
+
+	componentWillMount(){
+	//Fetch post details for post
+	//const postID = this.props.match.params.post_id;
+
+	}
+
 	updateInput = (inputName, inputValue) => {
 		this.setState({
 			[inputName]: inputValue
 		})
 	}
-	submitPost = (event) => {
-		event.preventDefault()
-		const {title, author, content, category} = this.state
-		const newPost = {
-			id: uuidv4(),
-			timestamp: Date.now(),
-			title,
-			body: content,
-			author,
-			category,
-			voteScore: 0,
-			deleted: false,
-			commentCount: 0
-		}
-		this.props.submitPost(newPost);
-		this.props.history.push('/');
-		this.props.getPosts();
+
+	editPost = (event) => {
+
 	}
 
 	render(){
 	const {categories} = this.props.readableApp;
+
 	return(
-	<div className="create-new-post container">
+	<div className="edit-post container">
 		<h3>Edit Post</h3>
+		<p><strong>Post ID:</strong> {this.state.id}</p>
+		<hr />
 		<table className="post-form table-responsive">
 		<tbody>
 			<tr>
@@ -91,7 +89,7 @@ class EditPost extends Component {
 
 		</tbody>
 		</table>
-		<input type="submit" value="Submit" onClick={event => this.submitPost(event)} />
+		<input type="submit" value="Submit Changes" onClick={event => this.editPost(event)} />
 		<Link to="/">Cancel</Link>
 	</div>
 	)
@@ -106,8 +104,8 @@ function mapDispatchToProps (dispatch) {
   return {
     dispatch,
     getCategories: () => dispatch(fetchCategories()),
-		getPosts: () => dispatch(fetchAllPosts()),
-		submitPost: (data) => dispatch(addPost(data)),
+    getPosts: () => dispatch(fetchAllPosts()),
+	getPostByID: (id) => dispatch(fetchPost(id)),
   }
 }
 export default connect (mapStateToProps, mapDispatchToProps)(EditPost)

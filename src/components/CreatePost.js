@@ -17,7 +17,7 @@ class CreatePost extends Component {
 		})
 	}
 	submitPost = (event) => {
-		event.preventDefault()
+		event.preventDefault();
 		const {title, author, content, category} = this.state
 		const newPost = {
 			id: uuidv4(),
@@ -40,6 +40,7 @@ class CreatePost extends Component {
 	return(
 	<div className="create-new-post container">
 		<h3>Add New Post</h3>
+		<hr />
 		<table className="post-form table-responsive">
 		<tbody>
 			<tr>
@@ -91,7 +92,7 @@ class CreatePost extends Component {
 
 		</tbody>
 		</table>
-		<input type="submit" value="Submit" onClick={event => this.submitPost(event)} />
+		<input type="submit" value="Post" onClick={event => this.submitPost(event)} />
 		<Link to="/">Cancel</Link>
 	</div>
 	)

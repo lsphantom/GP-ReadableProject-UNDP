@@ -108,7 +108,11 @@ export const getComments = (comments) => ({
 		type: GET_COMMENTS,
 		comments
 })
-export const addComment = (comment) => {
+export const addComment = (comment) => dispatch =>
+	APIUtils.addComment(comment)
+		.then(data => dispatch(pushComment(data))
+)
+export const pushComment = (comment) => {
 	return {
 		type: ADD_COMMENT,
 		comment

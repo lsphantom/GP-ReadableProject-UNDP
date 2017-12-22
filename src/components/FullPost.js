@@ -1,29 +1,74 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-
 import {fetchCategories,
 				fetchAllPosts,
 				fetchPost,
 				deletePost,
 				editPost,
 				changeVoteScore,
-				fetchComments} from '../actions'
+				fetchComments,
+				addComment} from '../actions'
 
 import Post from './Post'
+import Comment from './Comment'
+const uuidv1 = require('uuid/v1');
 
 
 class FullPost extends Component {
 state = {
-	id: ''
-}
+	id: '',
 
+	cid: '',
+	cpid: '',
+	ctimestamp: 0,
+	cbody: '',
+	cauthor: '',
+	cvotescore: 0,
+	cdeleted: false,
+	cparentdeleted: false,
+}
+updateInput = (inputName, inputValue) => {
+	this.setState({
+		[inputName]: inputValue
+	})
+}
+postComment = (event) => {
+	const newComment = {
+		id: uuidv1(),
+		parentId: this.state.cpid,
+		timestamp: Date.now(),
+		body: this.state.cbody,
+		author: this.state.cauthor,
+		voteScore: this.state.cvotescore,
+		deleted: this.state.cdeleted,
+		parentDeleted: this.state.cparentdeleted,
+	}
+	//console.log(newComment);
+	this.props.addComment(newComment);
+	this.clearCommentInput(event);
+	this.props.getPosts();
+	this.props.getComments(this.state.id);
+}
+clearCommentInput = (event) => {
+	event.preventDefault();
+	this.setState({
+		cid: '',
+		cpid: '',
+		ctimestamp: 0,
+		cbody: '',
+		cauthor: '',
+		cvotescore: 0,
+		cdeleted: false,
+		cparentdeleted: false,
+	})
+}
 componentWillMount(){
 	//Fetch post details for a single post
 	const postID = this.props.match.params.post_id;
 	if (postID !== '') {
-		this.setState({id: postID});
+		this.setState({id: postID, cpid: postID});
 		this.props.getPostByID(this.state.id);
-		this.props.getComments('b82f3d47-4276-4fca-b410-0b2bf2aed093');
+		this.props.getComments(postID);
 	} else {
 		console.log('Error: No post ID available!');
 	}
@@ -32,6 +77,9 @@ componentWillMount(){
 render (){
 	const allPosts = this.props.readableApp.posts;
 	const matchID = this.state.id;
+
+	const {comments} = this.props.readableApp;
+
 	return(
 	<div className="full-post container">
 		<div className="detailed-post">
@@ -50,21 +98,40 @@ render (){
 		}
 
 		</div>
+
+
+
 		<div className="comments-box">
 		<h4>Comments</h4>
-		{/*<CommentList />*/}
-		<a href="">Add comment &rarr;</a>
-		<div className="comment">
-			<p>Comment Title</p>
-			<p>Comment details</p>
-			<p>Comment body</p>
+		
+		<div className="add-comment">
+		<input type="text"
+				id="cbody"
+				value={this.state.cbody}
+				placeholder="Add a comment..."
+				className="comment-body-input form-control"
+				onChange={event => (this.updateInput(event.target.id, event.target.value))} />
+		<input type="text"
+				id="cauthor"
+				value={this.state.cauthor}
+				placeholder="Your name..."
+				className="comment-author-input form-control"
+				onChange={event => (this.updateInput(event.target.id, event.target.value))} />
+		<input type="submit"
+				value="Comment"
+				onClick={(event) => this.postComment(event)} />
+		<a href="" onClick={event => this.clearCommentInput(event)}>Cancel</a>
 		</div>
 
-		<div className="comment">
-			<p>Comment Title</p>
-			<p>Comment details</p>
-			<p>Comment body</p>
-		</div>
+
+
+		{ Array.isArray(comments) && comments.length > 0
+			? comments.map((comment, index) => 
+			<Comment key={index} content={comment.body} author={comment.author} score={comment.voteScore} /> )
+			: <p>-No comments-</p>
+		}
+		
+
 
 		</div>
 	</div>
@@ -82,11 +149,12 @@ function mapDispatchToProps (dispatch) {
     dispatch,
     getCategories: () => dispatch(fetchCategories()),
     getPosts: () => dispatch(fetchAllPosts()),
-		getPostByID: (id) => dispatch(fetchPost(id)),
-		deletePost: (id) => dispatch(deletePost(id)),
-		editPost: (id) => dispatch(editPost(id)),
-		voteOnPost: (post, voteType) => dispatch(changeVoteScore(post, voteType)),
-		getComments: (id) => dispatch(fetchComments(id)),
+	getPostByID: (id) => dispatch(fetchPost(id)),
+	deletePost: (id) => dispatch(deletePost(id)),
+	editPost: (id) => dispatch(editPost(id)),
+	voteOnPost: (post, voteType) => dispatch(changeVoteScore(post, voteType)),
+	getComments: (id) => dispatch(fetchComments(id)),
+	addComment: (comment) => dispatch(addComment(comment)),
   }
 }
 
