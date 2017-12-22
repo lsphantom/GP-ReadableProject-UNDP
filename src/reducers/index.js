@@ -13,6 +13,7 @@ import {
 	EDIT_POST,
 	GET_COMMENTS,
 	ADD_COMMENT,
+	DELETE_COMMENT,
 	} from '../actions'
 
 
@@ -42,27 +43,16 @@ function posts (state = [], action) {
 			return action.posts
 
 		case ADD_POST:
-			return [
-				...state,
-				...post
-			]
+			return [ ...state, ...post ]
 
 		case DELETE_POST:
-			return [
-				...state,
-				...post
-			]
+			return [ ...state, ...post ]
 
 		case EDIT_POST:
-			return [
-				...state,
-			]
+			return [ ...state, ...post ]
 
 		case VOTE_FOR_POST:
-			return [
-				...state,
-				...post
-			]
+			return [ ...state, ...post ]
 
 		default:
 			return state
@@ -93,7 +83,10 @@ function comments (state = [], action) {
 			return comments
 
 		case ADD_COMMENT:
-			return [...state, ...comment]
+			return [...state, comments]
+
+		case DELETE_COMMENT:
+      		return [...state, ...comment]
 
 		default:
 			return state

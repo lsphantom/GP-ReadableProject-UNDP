@@ -74,3 +74,18 @@ export const addComment = (data) =>
     body: JSON.stringify(data) })
     .then(data => data.json())
     .catch(err => { console.log(`Request to add comment failed`, err); })
+
+export const deleteComment = (id) =>
+  fetch(`${url}/comments/${id}`, {
+    method: 'DELETE', 
+    headers: { 'Authorization': 'whatever-you-want', 'Content-Type': 'application/json' } })
+    .then(data => data.json())
+    .catch(err => { console.log(`Request to delete comment ${id} failed`, err); })
+
+export const changeCommentScore = (id, voteType) =>
+  fetch(`${url}/comments/${id}`, {
+    method: 'POST',
+    headers: { 'Authorization': 'whatever-you-want', 'Content-Type': 'application/json' },
+    body: JSON.stringify({ option: voteType }) })
+    .then(data => data.json())
+    .catch(err => { console.log(`Request to modify score on comment ${id} failed.`) })

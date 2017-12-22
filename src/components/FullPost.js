@@ -33,7 +33,8 @@ updateInput = (inputName, inputValue) => {
 	})
 }
 postComment = (event) => {
-	const newComment = {
+	//Create comment
+	let newComment = {
 		id: uuidv1(),
 		parentId: this.state.cpid,
 		timestamp: Date.now(),
@@ -50,7 +51,6 @@ postComment = (event) => {
 	this.props.getComments(this.state.id);
 }
 clearCommentInput = (event) => {
-	event.preventDefault();
 	this.setState({
 		cid: '',
 		cpid: '',
@@ -60,7 +60,7 @@ clearCommentInput = (event) => {
 		cvotescore: 0,
 		cdeleted: false,
 		cparentdeleted: false,
-	})
+	});
 }
 componentWillMount(){
 	//Fetch post details for a single post
@@ -118,16 +118,21 @@ render (){
 				className="comment-author-input form-control"
 				onChange={event => (this.updateInput(event.target.id, event.target.value))} />
 		<input type="submit"
-				value="Comment"
+				value="Post Comment"
 				onClick={(event) => this.postComment(event)} />
-		<a href="" onClick={event => this.clearCommentInput(event)}>Cancel</a>
+		{/*<a href="" onClick={(event) => this.clearCommentInput(event)}>Cancel</a>*/}
 		</div>
 
 
 
 		{ Array.isArray(comments) && comments.length > 0
 			? comments.map((comment, index) => 
-			<Comment key={index} content={comment.body} author={comment.author} score={comment.voteScore} /> )
+			<Comment key={index}
+						parentId={comment.parentId}
+						id={comment.id}
+						content={comment.body}
+						author={comment.author}
+						score={comment.voteScore} /> )
 			: <p>-No comments-</p>
 		}
 		
