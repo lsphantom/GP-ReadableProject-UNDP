@@ -77,6 +77,11 @@ body {
 .post-content {
   font-size: 110%;
 }
+/*.post-upvote a,
+.post-downvote a {
+  color: #000;
+}*/
+
 
 .categories-list {
   list-style: none;

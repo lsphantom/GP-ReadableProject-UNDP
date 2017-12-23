@@ -17,7 +17,6 @@ const uuidv1 = require('uuid/v1');
 class FullPost extends Component {
 state = {
 	id: '',
-
 	cid: '',
 	cpid: '',
 	ctimestamp: 0,
@@ -44,16 +43,15 @@ postComment = (event) => {
 		deleted: this.state.cdeleted,
 		parentDeleted: this.state.cparentdeleted,
 	}
-	//console.log(newComment);
+	console.log(newComment);
 	this.props.addComment(newComment);
-	this.clearCommentInput(event);
 	this.props.getPosts();
 	this.props.getComments(this.state.id);
+	this.clearCommentInput(event);
 }
 clearCommentInput = (event) => {
 	this.setState({
 		cid: '',
-		cpid: '',
 		ctimestamp: 0,
 		cbody: '',
 		cauthor: '',
@@ -61,6 +59,7 @@ clearCommentInput = (event) => {
 		cdeleted: false,
 		cparentdeleted: false,
 	});
+	this.props.history.push();
 }
 componentWillMount(){
 	//Fetch post details for a single post

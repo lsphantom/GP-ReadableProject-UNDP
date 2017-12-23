@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import FaArrowUp from 'react-icons/lib/fa/arrow-up'
 import FaArrowDown from 'react-icons/lib/fa/arrow-down'
-import {deleteComment, fetchComments} from '../actions'
+import {deleteComment, fetchComments, changeCommentScore} from '../actions'
 
 function Comment(props) {
 let scoreClass;
@@ -25,8 +25,8 @@ return(
 		<p className="comment-author">{props.author}</p>
 		<p className="comment-body">{props.content}</p>
 		<div className="comment-controls">
-			<span><a className="comment-upvote" href="" onClick={() => {}}><FaArrowUp /></a></span>
-			<span><a className="comment-downvote" href="" onClick={() => {}}><FaArrowDown /></a></span>
+			<span><a className="comment-upvote" href="" onClick={() => props.voteOnComment(props.id, 'upVote')}><FaArrowUp /></a></span>
+			<span><a className="comment-downvote" href="" onClick={() => props.voteOnComment(props.id, 'downVote')}><FaArrowDown /></a></span>
 		</div>
 	</div>
 )
@@ -43,6 +43,7 @@ function mapDispatchToProps (dispatch) {
     dispatch,
     getComments: (id) => dispatch(fetchComments(id)),
 	removeComment: (comment) => dispatch(deleteComment(comment)),
+	voteOnComment: (id, voteType) => dispatch(changeCommentScore(id, voteType)),
   }
 }
 

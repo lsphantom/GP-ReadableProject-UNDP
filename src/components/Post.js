@@ -10,7 +10,7 @@ class Post extends Component {
 
 deleteThisPost = (id) => {
 	this.props.deletePost(id);
-	this.props.history.push('/');
+	//this.props.history.push('/');
 }
 
 submitVote = (post, voteType) => {

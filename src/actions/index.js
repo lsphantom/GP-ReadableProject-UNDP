@@ -114,7 +114,6 @@ export const addComment = (comment) => dispatch =>
 		.then(data => dispatch(pushComment(data))
 )
 export const pushComment = (comments) => {
-	console.log(comments);
 	return {
 		type: ADD_COMMENT,
 		comments

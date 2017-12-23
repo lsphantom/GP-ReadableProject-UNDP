@@ -15,9 +15,14 @@ class EditPost extends Component {
 	}
 
 	componentWillMount(){
-	//Fetch post details for post
-	//const postID = this.props.match.params.post_id;
-
+		//Fetch post details for a single post
+		const postID = this.props.match.params.post_id;
+		if (postID !== '') {
+			this.setState({id: postID});
+			this.props.getPostByID(this.state.id);
+		} else {
+			console.log('Error: No post ID available!');
+		}
 	}
 
 	updateInput = (inputName, inputValue) => {
@@ -32,12 +37,14 @@ class EditPost extends Component {
 
 	render(){
 	const {categories} = this.props.readableApp;
+	
 
 	return(
 	<div className="edit-post container">
 		<h3>Edit Post</h3>
 		<p><strong>Post ID:</strong> {this.state.id}</p>
 		<hr />
+
 		<table className="post-form table-responsive">
 		<tbody>
 			<tr>
