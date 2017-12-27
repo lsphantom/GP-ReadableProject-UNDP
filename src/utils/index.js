@@ -39,7 +39,7 @@ export const addPost = (data) =>
 export const editPost = (id, data) =>
   fetch(`${url}/posts/${id}`, {
     method: 'PUT',
-    headers: { 'Authorization': 'whatever-you-want' },
+    headers: { 'Authorization': 'whatever-you-want', 'Content-Type': 'application/json' },
     body: JSON.stringify(data) })
     .then(data => data.json())
     .catch(err => { console.log(`Request to edit post ${id} failed`, err); })

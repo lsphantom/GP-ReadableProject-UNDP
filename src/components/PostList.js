@@ -7,7 +7,7 @@ import Post from './Post'
 
 class PostList extends Component {
 	render(){
-		const {posts} = this.props.readableApp
+		const {posts, filtering} = this.props.readableApp
 		return(
 			<div className="post-list">
 			<h3>
@@ -15,7 +15,8 @@ class PostList extends Component {
 			</h3>
           	<Link to="/create-post">Add a new post &rarr;</Link>
 
-				{Array.isArray(posts) ? posts.map((post, index) =>
+			{Array.isArray(posts) && (filtering === 'all')
+				? posts.map((post, index) =>
 				<Post
 					key={index}
 					id={post.id}
@@ -26,7 +27,25 @@ class PostList extends Component {
 					date={post.timestamp}
 					commentCount={post.commentCount}
 					score={post.voteScore} />)
-				: <h4>No Posts</h4>}
+				: false
+			}
+
+
+			{Array.isArray(posts) && (filtering !== 'all')
+				? posts.filter(posts => (posts.category === filtering)).map((post, index) =>
+				<Post
+					key={index}
+					id={post.id}
+					title={post.title}
+					author={post.author}
+					content={post.body}
+					category={post.category}
+					date={post.timestamp}
+					commentCount={post.commentCount}
+					score={post.voteScore} />)
+				: false
+			}
+
 			</div>
 		)
 	}

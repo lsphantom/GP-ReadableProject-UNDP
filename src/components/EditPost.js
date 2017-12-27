@@ -3,23 +3,28 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {fetchCategories,
 		fetchAllPosts,
-		fetchPost} from '../actions'
+		fetchPost,
+		editPost} from '../actions'
 
 class EditPost extends Component {
 	state = {
 		id: '',
 		title: '',
 		author: '',
-		content: '',
+		body: '',
 		category: '',
 	}
 
-	componentWillMount(){
+	componentDidMount(){
 		//Fetch post details for a single post
 		const postID = this.props.match.params.post_id;
 		if (postID !== '') {
 			this.setState({id: postID});
-			this.props.getPostByID(this.state.id);
+			this.props.getPostByID(postID)
+				.then(data =>
+					this.setState(data.post)
+				)
+
 		} else {
 			console.log('Error: No post ID available!');
 		}
@@ -32,7 +37,22 @@ class EditPost extends Component {
 	}
 
 	editPost = (event) => {
-
+		event.preventDefault();
+		const {id, timestamp, title, author, body, category, voteScore, deleted, commentCount} = this.state
+		const editedPost = {
+			id,
+			timestamp,
+			title,
+			body,
+			author,
+			category,
+			voteScore,
+			deleted,
+			commentCount,
+		}
+		this.props.submitPostChanges(editedPost.id, editedPost);
+		this.props.history.push('/');
+		this.props.getPosts();
 	}
 
 	render(){
@@ -44,8 +64,9 @@ class EditPost extends Component {
 		<h3>Edit Post</h3>
 		<p><strong>Post ID:</strong> {this.state.id}</p>
 		<hr />
-
+		
 		<table className="post-form table-responsive">
+	
 		<tbody>
 			<tr>
 			<td>Title:</td>
@@ -72,9 +93,9 @@ class EditPost extends Component {
 			<tr>
 			<td>Post:</td>
 			<td>
-			<textarea id="content"
+			<textarea id="body"
 					  className="form-control"
-					  value={this.state.content}
+					  value={this.state.body}
 					  onChange={event => (this.updateInput(event.target.id, event.target.value))} >
 			</textarea>
 			</td>
@@ -95,6 +116,7 @@ class EditPost extends Component {
 			</tr>
 
 		</tbody>
+		
 		</table>
 		<input type="submit" value="Submit Changes" onClick={event => this.editPost(event)} />
 		<Link to="/">Cancel</Link>
@@ -113,6 +135,7 @@ function mapDispatchToProps (dispatch) {
     getCategories: () => dispatch(fetchCategories()),
     getPosts: () => dispatch(fetchAllPosts()),
 	getPostByID: (id) => dispatch(fetchPost(id)),
+	submitPostChanges: (id, post) => dispatch(editPost(id, post)),
   }
 }
 export default connect (mapStateToProps, mapDispatchToProps)(EditPost)

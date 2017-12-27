@@ -73,17 +73,19 @@ export const pushDeletePost = post => ({
 	post
 })
 
-export const editPost = (id, data) => {
+export const editPost = (id, data) => dispatch => {
 	APIUtils.editPost(id, data)
-		.then(post => ({
-				type: EDIT_POST,
-				post
-		}))
+		.then(post => dispatch(pushPostChanges(post)))
 }
+export const pushPostChanges = post => ({
+	type: EDIT_POST,
+	post
+})
+
 
 export const fetchPost = (id) => dispatch =>
 	APIUtils.fetchPost(id)
-		.then(post => dispatch(pushPostDetails(post))
+		.then(post => dispatch(pushPostDetails(post))		
 )
 
 export const pushPostDetails = (post) => ({
