@@ -6,17 +6,21 @@ import { fetchCategories, fetchAllPosts, fetchPostsInCategory } from '../actions
 import Post from './Post'
 
 class PostList extends Component {
+	state = {
+		activePosts: [],
+		filter: ''
+	}
 	render(){
-		const {posts, filtering} = this.props.readableApp
+		const {activePosts, filter} = this.props
 		return(
 			<div className="post-list">
 			<h3>
-				<span className="categories-label">{`${this.props.filter} `}</span>Posts
+				<span className="categories-label">{`${filter} `}</span>Posts
 			</h3>
           	<Link to="/create-post">Add a new post &rarr;</Link>
 
-			{Array.isArray(posts) && (filtering === 'all')
-				? posts.map((post, index) =>
+			{ activePosts.length > 0
+				? activePosts.map((post, index) =>
 				<Post
 					key={index}
 					id={post.id}
@@ -27,23 +31,7 @@ class PostList extends Component {
 					date={post.timestamp}
 					commentCount={post.commentCount}
 					score={post.voteScore} />)
-				: false
-			}
-
-
-			{Array.isArray(posts) && (filtering !== 'all')
-				? posts.filter(posts => (posts.category === filtering)).map((post, index) =>
-				<Post
-					key={index}
-					id={post.id}
-					title={post.title}
-					author={post.author}
-					content={post.body}
-					category={post.category}
-					date={post.timestamp}
-					commentCount={post.commentCount}
-					score={post.voteScore} />)
-				: false
+				: <p>-No posts-</p>
 			}
 
 			</div>

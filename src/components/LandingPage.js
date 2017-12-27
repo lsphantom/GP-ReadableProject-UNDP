@@ -18,7 +18,8 @@ componentDidMount(){
   }
 }
 render (){
-	const {categories, filtering} = this.props.readableApp
+	const {categories, filtering, posts} = this.props.readableApp;
+  let filteredPosts = posts.filter(posts => (posts.category === filtering));
 	return(
 	<div id="home" className="container-fluid">
         <div className="container">
@@ -30,7 +31,11 @@ render (){
           </div>
           <div className="posts-col col-sm-6">
 
-          <PostList filter={filtering} sortBy="" />
+          { (filtering !== 'all')
+            ? <PostList filter={filtering} activePosts={filteredPosts} sortBy="" />
+            : <PostList filter={filtering} activePosts={posts} sortBy="" />
+          }
+          
 
           </div>
         </div>
