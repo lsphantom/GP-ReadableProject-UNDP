@@ -40,7 +40,8 @@ body {
   text-align: left;
   border-right: none;
 }
-.categories-list a {
+.categories-list a,
+.sortby a {
   color: #000;
 }
 .categories-label {

@@ -99,10 +99,10 @@ function comments (state = [], action) {
 
 
 
-function sortPosts (state = null, action) {
+function sortPosts (state = '', action) {
 	switch (action.type) {
 		case SET_POST_SORTING:
-			return state
+			return action.sortingBy
 
 		default:
 			return state

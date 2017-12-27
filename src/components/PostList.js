@@ -2,16 +2,36 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import { fetchCategories, fetchAllPosts, fetchPostsInCategory } from '../actions'
+import sortBy from 'sort-by'
 
 import Post from './Post'
 
 class PostList extends Component {
-	state = {
-		activePosts: [],
-		filter: ''
-	}
+
 	render(){
-		const {activePosts, filter} = this.props
+		const {activePosts, filter, sortPostsBy} = this.props;
+		let sortedPosts = [];
+
+		//Sort if possible
+		if ( Array.isArray(activePosts) && (activePosts.length > 0 ) ) {
+			switch (sortPostsBy) {
+				case 'date_+':
+					sortedPosts = activePosts.sort(sortBy('timestamp'));
+					break;
+				case 'date_-':
+					sortedPosts = activePosts.sort(sortBy('-timestamp'));
+					break;
+				case 'score_+':
+					sortedPosts = activePosts.sort(sortBy('-voteScore'));
+					break;
+				case 'score_-':
+					sortedPosts = activePosts.sort(sortBy('voteScore'));
+					break;
+				default:
+					sortedPosts = activePosts;
+			}
+		}
+
 		return(
 			<div className="post-list">
 			<h3>
@@ -19,8 +39,9 @@ class PostList extends Component {
 			</h3>
           	<Link to="/create-post">Add a new post &rarr;</Link>
 
-			{ activePosts.length > 0
-				? activePosts.map((post, index) =>
+			{	
+				sortedPosts.length > 0
+				? sortedPosts.map((post, index) =>
 				<Post
 					key={index}
 					id={post.id}

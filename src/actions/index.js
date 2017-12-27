@@ -145,12 +145,12 @@ export const voteForComment = (id, voteType) => ({
 export const setPostSorting = (sortingBy) => {
 	return {
 		type: SET_POST_SORTING,
-		sortingBy,
+		sortingBy
 	}
 }
 export const setCommentSorting = (sortingBy) => {
 	return {
 		type: SET_COMMENT_SORTING,
-		sortingBy,
+		sortingBy
 	}
 }
