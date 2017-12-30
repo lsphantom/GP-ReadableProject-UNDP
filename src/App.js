@@ -10,6 +10,7 @@ import LandingPage from './components/LandingPage'
 import CreatePost from './components/CreatePost'
 import FullPost from './components/FullPost'
 import EditPost from './components/EditPost'
+import NotFoundPage from './components/NotFoundPage'
 
 
 class App extends Component {
@@ -27,8 +28,9 @@ class App extends Component {
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/create-post" component={CreatePost} />
           <Route exact path="/:category" component={LandingPage} />
-          <Route path="/posts/:post_id" component={EditPost} />
-          <Route path="/:category/:post_id" component={FullPost} />
+          <Route exact path="/posts/:post_id" component={EditPost} />
+          <Route exact path="/:category/:post_id" component={FullPost} /> 
+          <Route component={NotFoundPage} />
         </Switch>
       </BrowserRouter>
       </div>

@@ -89,3 +89,11 @@ export const changeCommentScore = (id, voteType) =>
     body: JSON.stringify({ option: voteType }) })
     .then(data => data.json())
     .catch(err => { console.log(`Request to modify score on comment ${id} failed.`) })
+
+export const editComment = (id, data) =>
+  fetch(`${url}/comments/${id}`, {
+    method: 'PUT',
+    headers: { 'Authorization': 'whatever-you-want', 'Content-Type': 'application/json' },
+    body: JSON.stringify(data) })
+    .then(data => data.json())
+    .catch(err => { console.log(`Request to edit post ${id} failed`, err); } )

@@ -15,6 +15,7 @@ export const VOTE_FOR_POST = 'VOTE_FOR_POST'
 export const GET_COMMENTS = 'GET_COMMENTS'
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
+export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const VOTE_FOR_COMMENT = 'VOTE_FOR_COMMENT'
 
 export const SET_POST_SORTING = 'SET_POST_SORTING'
@@ -138,6 +139,14 @@ export const changeCommentScore = (id, voteType) => dispatch => {
 export const voteForComment = (id, voteType) => ({
 		type: VOTE_FOR_COMMENT,
 		id
+})
+export const editComment = (id, data) => dispatch => {
+	APIUtils.editComment(id, data)
+		.then(comment => dispatch(pushCommentChanges(comment)))
+}
+export const pushCommentChanges = comment => ({
+	type: EDIT_COMMENT,
+	comment
 })
 
 

@@ -82,7 +82,16 @@ body {
 .post-downvote a {
   color: #000;
 }*/
-
+.notFound-post {
+  height: 100px;
+  padding: 30px;
+  border-radius: 5px;
+  margin: 20px auto;
+}
+.oops-text {
+  font-size: 30px;
+  font-weight: bold;
+}
 
 .categories-list {
   list-style: none;
@@ -174,10 +183,24 @@ tr > td:nth-child(2) {
 .comment-remove {
   position: absolute;
   right: 10px;
-  top: 4px;
+  top: 2px;
   color: #fff;
   font-weight: bold;  
 }
+.comment-remove:hover {
+  color: red;
+}
+.comment-edit {
+  position:  absolute;
+  right: 20px;
+  top: 0px;
+  color: #fff;
+
+  background-color: transparent;
+  outline: none;
+  border: none;
+}
+
 .comment-upvote,
 .comment-downvote {
   color: #fff;
@@ -204,4 +227,13 @@ tr > td:nth-child(2) {
 }
 .comment-author-input {
   margin-bottom: 10px;
+}
+.comment-id {
+  text-align: center;
+}
+.modal-close {
+  float: right;
+}
+.modal-body > h4 {
+  text-align: center;
 }

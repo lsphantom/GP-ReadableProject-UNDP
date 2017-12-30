@@ -2,6 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import FaArrowUp from 'react-icons/lib/fa/arrow-up'
 import FaArrowDown from 'react-icons/lib/fa/arrow-down'
+import FaPencil from 'react-icons/lib/fa/pencil'
+import FaTrash from 'react-icons/lib/fa/trash'
 import {deleteComment, fetchComments, changeCommentScore} from '../actions'
 
 function Comment(props) {
@@ -13,15 +15,19 @@ if (props.score > 0){
 } else {
 	scoreClass = '';
 }
+
+const {id, content, author} = props;
+
 return(
 	<div className="comment">
 		<div className={`comment-score ${scoreClass}`}>{props.score}</div>
+		<button className="comment-edit" href="" onClick={() => props.edit(id, content, author)}><FaPencil/></button>
 		<a className="comment-remove"
 						href=""
 						onClick={(event) => {
 							props.removeComment(props.id);
 							props.getComments(props.parentId);
-						}}>x</a>
+						}}><FaTrash/></a>
 		<p className="comment-author">{props.author}</p>
 		<p className="comment-body">{props.content}</p>
 		<div className="comment-controls">

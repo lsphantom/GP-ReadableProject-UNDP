@@ -14,6 +14,7 @@ import {
 	GET_COMMENTS,
 	ADD_COMMENT,
 	DELETE_COMMENT,
+	EDIT_COMMENT,
 	VOTE_FOR_COMMENT,
 	} from '../actions'
 
@@ -87,6 +88,9 @@ function comments (state = [], action) {
 			return [...state, comments]
 
 		case DELETE_COMMENT:
+      		return [...state, ...comment]
+
+      	case EDIT_COMMENT:
       		return [...state, ...comment]
 
       	case VOTE_FOR_COMMENT:

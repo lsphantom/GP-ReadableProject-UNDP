@@ -21,10 +21,7 @@ class EditPost extends Component {
 		if (postID !== '') {
 			this.setState({id: postID});
 			this.props.getPostByID(postID)
-				.then(data =>
-					this.setState(data.post)
-				)
-
+				.then(data => this.setState(data.post))
 		} else {
 			console.log('Error: No post ID available!');
 		}
