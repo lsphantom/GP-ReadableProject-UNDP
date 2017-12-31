@@ -119,7 +119,7 @@ render (){
 				commentCount={this.state.commentCount}
 				score={this.state.voteScore} />
 			: <div className="notFound-post">
-				<p className="oops-text">Oops, no post found.</p>
+				<p className="oops-text">Oops, this post doesn't exist.</p>
 				<Link to="/">&larr; Return to main page</Link>
 			  </div>
 		}
@@ -156,7 +156,7 @@ render (){
 		}
 
 		{ 
-		  Array.isArray(comments)  && comments.length > 0
+		  Array.isArray(comments)  && comments.length > 0  && body !== ''
 		  ? comments.map((comment, index) => 
 			<Comment key={index}
 						parentId={comment.parentId}
@@ -165,7 +165,7 @@ render (){
 						author={comment.author}
 						score={comment.voteScore}
 						edit={this.handleOpenModal} /> )
-			: <p>-No comments-</p>
+			: null
 		}
 		
 		</div>
